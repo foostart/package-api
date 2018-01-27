@@ -1,0 +1,24 @@
+{
+    "name": "foostart/package-api",
+    "description": "Manage api",
+    "keywords": [
+        "foostart",
+        "laravel 5 package api"
+    ],
+    "authors": [
+        {
+            "name": "FooStart",
+            "email": "foostart.com@gmail.com",
+            "homepage": "http://foostart.com"
+        }
+    ],
+    "license": "MIT",
+    "require": {
+    },
+    "autoload": {
+        "psr-4": {
+            "Foostart\\Api\\": "/"
+        }
+    },
+    "minimum-stability": "dev"
+}
