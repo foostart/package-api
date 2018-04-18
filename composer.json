@@ -1,6 +1,6 @@
 {
     "name": "foostart/package-api",
-    "description": "Manage api",
+    "description": "Create overview api can intergrate other project",
     "keywords": [
         "foostart",
         "laravel 5 package api"

@@ -5,9 +5,9 @@ use Illuminate\Session\TokenMismatchException;
 /**
  * FRONT
  */
-Route::get('sample', [
-    'as' => 'sample',
-    'uses' => 'Foostart\Sample\Controllers\Front\SampleFrontController@index'
+Route::get('api', [
+    'as' => 'api',
+    'uses' => 'Foostart\Api\Controllers\Front\ApiFrontController@index'
 ]);
 
 
@@ -16,96 +16,82 @@ Route::get('sample', [
  */
 Route::group(['middleware' => ['web']], function () {
 
-    Route::group(['middleware' => ['admin_logged', 'can_see', 'in_context'],
-                  'namespace' => 'Foostart\Sample\Controllers\Admin',
-        ], function () {
+    Route::group(['middleware' => ['admin_logged', 'can_see']], function () {
 
-        /*
-          |-----------------------------------------------------------------------
-          | Manage sample
-          |-----------------------------------------------------------------------
-          | 1. List of samples
-          | 2. Edit sample
-          | 3. Delete sample
-          | 4. Add new sample
-          | 5. Manage configurations
-          | 6. Manage languages
-          |
-        */
-
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////apiS ROUTE///////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
         /**
          * list
          */
-        Route::get('admin/samples/list', [
-            'as' => 'samples.list',
-            'uses' => 'SampleAdminController@index'
+        Route::get('admin/api', [
+            'as' => 'admin_api',
+            'uses' => 'Foostart\Api\Controllers\Admin\ApiAdminController@index'
         ]);
 
         /**
          * edit-add
          */
-        Route::get('admin/samples/edit', [
-            'as' => 'samples.edit',
-            'uses' => 'SampleAdminController@edit'
-        ]);
-
-        /**
-         * copy
-         */
-        Route::get('admin/samples/copy', [
-            'as' => 'samples.copy',
-            'uses' => 'SampleAdminController@copy'
+        Route::get('admin/api/edit', [
+            'as' => 'admin_api.edit',
+            'uses' => 'Foostart\Api\Controllers\Admin\ApiAdminController@edit'
         ]);
 
         /**
          * post
          */
-        Route::post('admin/samples/edit', [
-            'as' => 'samples.post',
-            'uses' => 'SampleAdminController@post'
+        Route::post('admin/api/edit', [
+            'as' => 'admin_api.post',
+            'uses' => 'Foostart\Api\Controllers\Admin\ApiAdminController@post'
         ]);
 
         /**
          * delete
          */
-        Route::get('admin/samples/delete', [
-            'as' => 'samples.delete',
-            'uses' => 'SampleAdminController@delete'
+        Route::get('admin/api/delete', [
+            'as' => 'admin_api.delete',
+            'uses' => 'Foostart\Api\Controllers\Admin\ApiAdminController@delete'
+        ]);
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////apiS ROUTE///////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+
+
+
+
+        
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////CATEGORIES///////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
+         Route::get('admin/api_category', [
+            'as' => 'admin_api_category',
+            'uses' => 'Foostart\Api\Controllers\Admin\ApiCategoryAdminController@index'
         ]);
 
         /**
-         * trash
+         * edit-add
          */
-         Route::get('admin/samples/trash', [
-            'as' => 'samples.trash',
-            'uses' => 'SampleAdminController@trash'
+        Route::get('admin/api_category/edit', [
+            'as' => 'admin_api_category.edit',
+            'uses' => 'Foostart\Api\Controllers\Admin\ApiCategoryAdminController@edit'
         ]);
 
         /**
-         * configs
-        */
-        Route::get('admin/samples/config', [
-            'as' => 'samples.config',
-            'uses' => 'SampleAdminController@config'
+         * post
+         */
+        Route::post('admin/api_category/edit', [
+            'as' => 'admin_api_category.post',
+            'uses' => 'Foostart\Api\Controllers\Admin\ApiCategoryAdminController@post'
         ]);
-
-        Route::post('admin/samples/config', [
-            'as' => 'samples.config',
-            'uses' => 'SampleAdminController@config'
+         /**
+         * delete
+         */
+        Route::get('admin/api_category/delete', [
+            'as' => 'admin_api_category.delete',
+            'uses' => 'Foostart\Api\Controllers\Admin\ApiCategoryAdminController@delete'
         ]);
-
-        /**
-         * language
-        */
-        Route::get('admin/samples/lang', [
-            'as' => 'samples.lang',
-            'uses' => 'SampleAdminController@lang'
-        ]);
-
-        Route::post('admin/samples/lang', [
-            'as' => 'samples.lang',
-            'uses' => 'SampleAdminController@lang'
-        ]);
-
+        ////////////////////////////////////////////////////////////////////////
+        ////////////////////////////CATEGORIES///////////////////////////////
+        ////////////////////////////////////////////////////////////////////////
     });
 });
