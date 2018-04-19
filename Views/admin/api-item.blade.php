@@ -44,6 +44,20 @@
                     @endif
                 </a>
             </th>
+                      <!--REF-->
+             <?php $name = 'api_status' ?>
+
+<th class="hidden-xs" style='width:{{ $withs['name'] }}'>{!! trans($plang_admin.'.columns.api_status') !!}
+    <a href='{!! $sorting["url"][$name] !!}' class='tb-id' data-order='asc'>
+        @if($sorting['items'][$name] == 'asc')
+            <i class="fa fa-sort-alpha-asc" aria-hidden="true"></i>
+        @elseif($sorting['items'][$name] == 'desc')
+            <i class="fa fa-sort-alpha-desc" aria-hidden="true"></i>
+        @else
+            <i class="fa fa-sort-desc" aria-hidden="true"></i>
+        @endif
+    </a>
+</th>
 
             <!-- NAME -->
             <?php $name = 'updated_at' ?>
@@ -90,6 +104,17 @@
 
                 <!--NAME-->
                 <td> {!! $item->api_name !!} </td>
+                    
+                    <!--STATUS-->
+                <td style="text-align: center;">
+
+                        <?php $status = config('package-category.status'); ?>
+                        @if($item->api_status && (isset($status['list'][$item->api_status])))
+                            <i class="fa fa-circle" style="color:{!! $status['color'][$item->api_status] !!}" title='{!! $status["list"][$item->api_status] !!}'></i>
+                        @else
+                        <i class="fa fa-circle-o red" title='{!! trans($plang_admin.".labels.unknown") !!}'></i>
+                        @endif
+                        </td>
 
                 <!--UPDATED AT-->
                 <td> {!! $item->updated_at !!} </td>

@@ -216,11 +216,7 @@ class Api extends FooModel {
                     }
                 }
             }
-        } elseif ($by_status) {
-
-            $elo = $elo->where($this->table . '.'.$this->field_status, '=', $this->status['publish']);
-
-        }
+        } 
 
         return $elo;
     }
@@ -272,7 +268,7 @@ class Api extends FooModel {
                 $api->$key = $value;
             }
 
-            $api->$field_status = $this->status['publish'];
+         
 
             $api->save();
 
