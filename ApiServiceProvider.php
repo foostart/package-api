@@ -4,10 +4,9 @@ namespace Foostart\Api;
 
 use Illuminate\Support\ServiceProvider;
 use LaravelAcl\Authentication\Classes\Menu\SentryMenuFactory;
-
-use URL, Route;
+use URL,
+    Route;
 use Illuminate\Http\Request;
-
 
 class ApiServiceProvider extends ServiceProvider {
 
@@ -17,30 +16,27 @@ class ApiServiceProvider extends ServiceProvider {
      * @return void
      */
     public function boot(Request $request) {
-        /**
-         * Publish
-         */
-         $this->publishes([
-            __DIR__.'/config/api_admin.php' => config_path('api_admin.php'),
-        ],'config');
 
-        $this->loadViewsFrom(__DIR__ . '/views', 'api');
+        //generate context key
+//        $this->generateContextKey();
 
+        // load view
+        $this->loadViewsFrom(__DIR__ . '/Views', 'package-api');
 
-        /**
-         * Translations
-         */
-         $this->loadTranslationsFrom(__DIR__.'/lang', 'api');
+        // include view composers
+        require __DIR__ . "/composers.php";
 
+        // publish config
+        $this->publishConfig();
 
-        /**
-         * Load view composer
-         */
-        $this->apiViewComposer($request);
+        // publish lang
+        $this->publishLang();
 
-         $this->publishes([
-                __DIR__.'/../database/migrations/' => database_path('migrations')
-            ], 'migrations');
+        // publish views
+        $this->publishViews();
+
+        // publish assets
+        $this->publishAssets();
 
     }
 
@@ -51,55 +47,46 @@ class ApiServiceProvider extends ServiceProvider {
      */
     public function register() {
         include __DIR__ . '/routes.php';
-
-        /**
-         * Load controllers
-         */
-        $this->app->make('Foostart\Api\Controllers\Admin\ApiAdminController');
-
-         /**
-         * Load Views
-         */
-        $this->loadViewsFrom(__DIR__ . '/views', 'api');
     }
 
     /**
-     *
+     * Public config to system
+     * @source: vendor/foostart/package-api/config
+     * @destination: config/
      */
-    public function apiViewComposer(Request $request) {
+    protected function publishConfig() {
+        $this->publishes([
+            __DIR__ . '/config/package-api.php' => config_path('package-api.php'),
+                ], 'config');
+    }
 
-        view()->composer('api::api*', function ($view) {
-            global $request;
-            $api_id = $request->get('id');
-            $is_action = empty($api_id)?'page_add':'page_edit';
+    /**
+     * Public language to system
+     * @source: vendor/foostart/package-api/lang
+     * @destination: resources/lang
+     */
+    protected function publishLang() {
+        $this->publishes([
+            __DIR__ . '/lang' => base_path('resources/lang'),
+        ]);
+    }
 
-            $view->with('sidebar_items', [
+    /**
+     * Public view to system
+     * @source: vendor/foostart/package-api/Views
+     * @destination: resources/views/vendor/package-api
+     */
+    protected function publishViews() {
 
-                /**
-                 * apis
-                 */
-                //list
-                trans('api::api_admin.page_list') => [
-                    'url' => URL::route('admin_api'),
-                    "icon" => '<i class="fa fa-list-ul"></i>'
-                ],
-                //add
-                trans('api::api_admin.'.$is_action) => [
-                    'url' => URL::route('admin_api.edit'),
-                    "icon" => '<i class="fa fa-users"></i>'
-                ],
+        $this->publishes([
+            __DIR__ . '/Views' => base_path('resources/views/vendor/package-api'),
+        ]);
+    }
 
-                /**
-                 * Categories
-                 */
-                //list
-                trans('api::api_admin.page_category_list') => [
-                    'url' => URL::route('admin_api_category'),
-                    "icon" => '<i class="fa fa-sitemap"></i>'
-                ],
-            ]);
-            //
-        });
+    protected function publishAssets() {
+        $this->publishes([
+            __DIR__ . '/public' => public_path('packages/foostart/package-api'),
+        ]);
     }
 
 }

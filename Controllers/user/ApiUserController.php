@@ -10,7 +10,7 @@ use URL,
     Redirect;
 use Foostart\Api\Models\Apis;
 
-class ApiFrontController extends Controller
+class ApiUserController extends Controller
 {
     public $data = array();
     public function __construct() {

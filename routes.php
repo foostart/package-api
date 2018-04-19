@@ -16,82 +16,96 @@ Route::get('api', [
  */
 Route::group(['middleware' => ['web']], function () {
 
-    Route::group(['middleware' => ['admin_logged', 'can_see']], function () {
+    Route::group(['middleware' => ['admin_logged', 'can_see',],
+                  'namespace' => 'Foostart\Api\Controllers\Admin',
+        ], function () {
 
-        ////////////////////////////////////////////////////////////////////////
-        ////////////////////////////apiS ROUTE///////////////////////////////
-        ////////////////////////////////////////////////////////////////////////
+        /*
+          |-----------------------------------------------------------------------
+          | Manage api
+          |-----------------------------------------------------------------------
+          | 1. List of apis
+          | 2. Edit api
+          | 3. Delete api
+          | 4. Add new api
+          | 5. Manage configurations
+          | 6. Manage languages
+          |
+        */
+
         /**
          * list
          */
-        Route::get('admin/api', [
-            'as' => 'admin_api',
-            'uses' => 'Foostart\Api\Controllers\Admin\ApiAdminController@index'
+        Route::get('admin/apis/list', [
+            'as' => 'apis.list',
+            'uses' => 'ApiAdminController@index'
         ]);
 
         /**
          * edit-add
          */
-        Route::get('admin/api/edit', [
-            'as' => 'admin_api.edit',
-            'uses' => 'Foostart\Api\Controllers\Admin\ApiAdminController@edit'
+        Route::get('admin/apis/edit', [
+            'as' => 'apis.edit',
+            'uses' => 'ApiAdminController@edit'
+        ]);
+
+        /**
+         * copy
+         */
+        Route::get('admin/apis/copy', [
+            'as' => 'apis.copy',
+            'uses' => 'ApiAdminController@copy'
         ]);
 
         /**
          * post
          */
-        Route::post('admin/api/edit', [
-            'as' => 'admin_api.post',
-            'uses' => 'Foostart\Api\Controllers\Admin\ApiAdminController@post'
+        Route::post('admin/apis/edit', [
+            'as' => 'apis.post',
+            'uses' => 'ApiAdminController@post'
         ]);
 
         /**
          * delete
          */
-        Route::get('admin/api/delete', [
-            'as' => 'admin_api.delete',
-            'uses' => 'Foostart\Api\Controllers\Admin\ApiAdminController@delete'
-        ]);
-        ////////////////////////////////////////////////////////////////////////
-        ////////////////////////////apiS ROUTE///////////////////////////////
-        ////////////////////////////////////////////////////////////////////////
-
-
-
-
-        
-        ////////////////////////////////////////////////////////////////////////
-        ////////////////////////////CATEGORIES///////////////////////////////
-        ////////////////////////////////////////////////////////////////////////
-         Route::get('admin/api_category', [
-            'as' => 'admin_api_category',
-            'uses' => 'Foostart\Api\Controllers\Admin\ApiCategoryAdminController@index'
+        Route::get('admin/apis/delete', [
+            'as' => 'apis.delete',
+            'uses' => 'ApiAdminController@delete'
         ]);
 
         /**
-         * edit-add
+         * trash
          */
-        Route::get('admin/api_category/edit', [
-            'as' => 'admin_api_category.edit',
-            'uses' => 'Foostart\Api\Controllers\Admin\ApiCategoryAdminController@edit'
+         Route::get('admin/apis/trash', [
+            'as' => 'apis.trash',
+            'uses' => 'ApiAdminController@trash'
         ]);
 
         /**
-         * post
-         */
-        Route::post('admin/api_category/edit', [
-            'as' => 'admin_api_category.post',
-            'uses' => 'Foostart\Api\Controllers\Admin\ApiCategoryAdminController@post'
+         * configs
+        */
+        Route::get('admin/apis/config', [
+            'as' => 'apis.config',
+            'uses' => 'ApiAdminController@config'
         ]);
-         /**
-         * delete
-         */
-        Route::get('admin/api_category/delete', [
-            'as' => 'admin_api_category.delete',
-            'uses' => 'Foostart\Api\Controllers\Admin\ApiCategoryAdminController@delete'
+
+        Route::post('admin/apis/config', [
+            'as' => 'apis.config',
+            'uses' => 'ApiAdminController@config'
         ]);
-        ////////////////////////////////////////////////////////////////////////
-        ////////////////////////////CATEGORIES///////////////////////////////
-        ////////////////////////////////////////////////////////////////////////
+
+        /**
+         * language
+        */
+        Route::get('admin/apis/lang', [
+            'as' => 'apis.lang',
+            'uses' => 'ApiAdminController@lang'
+        ]);
+
+        Route::post('admin/apis/lang', [
+            'as' => 'apis.lang',
+            'uses' => 'ApiAdminController@lang'
+        ]);
+
     });
 });
