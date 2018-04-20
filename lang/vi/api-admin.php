@@ -140,6 +140,7 @@ return [
         'not-found' => 'Not found items',
         'config' => 'List of configurations',
         'lang' => 'List of languages',
+        'context-status' =>'Status'
     ],
 
 
@@ -197,6 +198,8 @@ return [
         'title-search' => 'Search api',
         'title-backup' => 'Backups',
         'config' => 'Configurations',
+        'context-status' =>'Status',
+    
     ],
 
 
