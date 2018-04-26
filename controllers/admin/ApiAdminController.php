@@ -61,6 +61,7 @@ class ApiAdminController extends FooController {
 
         // //set category
         $this->category_ref_name = 'admin/apis';
+        $this->statuses = config('package-api.status.list');
 
     }
 
@@ -80,6 +81,7 @@ class ApiAdminController extends FooController {
             'items' => $items,
             'request' => $request,
             'params' => $params,
+            'statuses' => $this->statuses,
         ));
 
         return view($this->page_views['admin']['items'], $this->data_view);
@@ -124,6 +126,7 @@ class ApiAdminController extends FooController {
             'categories' => $categories,
             'request' => $request,
             'context' => $context,
+            'statuses' => $this->statuses,
         ));
         return view($this->page_views['admin']['edit'], $this->data_view);
     }

@@ -34,6 +34,8 @@ class Api extends FooModel {
             'api_image',
             'api_files',
             'api_status',
+            'api_key',
+          
         ];
 
         //list of fields for inserting
@@ -74,6 +76,14 @@ class Api extends FooModel {
                 'name' => 'files',
                 'type' => 'Json',
             ],
+            'api_status' => [
+                'name' => 'api_status',
+                'type' => 'Int',
+            ],
+            'api_key' => [
+                'name' => 'api_key',
+                'type' => 'Text',
+            ],
         ];
 
         //check valid fields for inserting
@@ -88,6 +98,7 @@ class Api extends FooModel {
             'api_image',
             'api_files',
             'api_status',
+            'api_key',
         ];
 
         //check valid fields for ordering
@@ -287,18 +298,22 @@ class Api extends FooModel {
     public function insertItem($params = []) {
 
         $dataFields = $this->getDataFields($params, $this->fields);
-
-        $dataFields[$this->field_status] = $this->status['publish'];
-
-
+        $dataFields['api_key'] = $this->generateApiKey();
         $item = self::create($dataFields);
 
         $key = $this->primaryKey;
         $item->id = $item->$key;
 
         return $item;
-    }
 
+    }
+  /**
+     * Generate Api key
+     */
+    private function generateApiKey(){
+        $api_key = substr(md5(time().rand(1,99999)),rand(1,10),29);
+        return $api_key;
+    }
 
     /**
      *
@@ -312,7 +327,7 @@ class Api extends FooModel {
         if ($item) {
             switch ($delete_type) {
                 case 'delete-trash':
-                    return $item->fdelete($item);
+                    return $item->delete($item);
                     break;
                 case 'delete-forever':
                     return $item->delete();

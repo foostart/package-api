@@ -2,10 +2,13 @@
 <?php
     $withs = [
         'order' => '5%',
-        'name' => '40%',
-        'updated_at' => '40%',
-        'operations' => '10%',
+        'name' => '20%',
+        'key' => '10%',
+        'status' => '20%',
+        'updated_at' => '25%',
+        'operations' => '15%',
         'delete' => '5%',
+        
     ];
 
     global $counter;
@@ -19,7 +22,7 @@
         {!! trans($plang_admin.'.descriptions.counters', ['number' => $nav['total']]) !!}
     @endif
 </caption>
-
+<div class="table-responsive">
 <table class="table table-hover">
 
     <thead>
@@ -44,20 +47,26 @@
                     @endif
                 </a>
             </th>
+              <!--KEY-->
+            <th style='width:{{ $withs['key'] }}'>
+                {{ trans($plang_admin.'.columns.key') }}
+            </th>
+
                       <!--REF-->
              <?php $name = 'api_status' ?>
 
-<th class="hidden-xs" style='width:{{ $withs['name'] }}'>{!! trans($plang_admin.'.columns.api_status') !!}
-    <a href='{!! $sorting["url"][$name] !!}' class='tb-id' data-order='asc'>
-        @if($sorting['items'][$name] == 'asc')
-            <i class="fa fa-sort-alpha-asc" aria-hidden="true"></i>
-        @elseif($sorting['items'][$name] == 'desc')
-            <i class="fa fa-sort-alpha-desc" aria-hidden="true"></i>
-        @else
-            <i class="fa fa-sort-desc" aria-hidden="true"></i>
-        @endif
-    </a>
-</th>
+    <th class="hidden-xs" style='width:{{ $withs['name'] }}'>{!! trans($plang_admin.'.columns.api_status') !!}
+        <a href='{!! $sorting["url"][$name] !!}' class='tb-id' data-order='asc'>
+            @if($sorting['items'][$name] == 'asc')
+                <i class="fa fa-sort-alpha-asc" aria-hidden="true"></i>
+            @elseif($sorting['items'][$name] == 'desc')
+                <i class="fa fa-sort-alpha-desc" aria-hidden="true"></i>
+            @else
+                <i class="fa fa-sort-desc" aria-hidden="true"></i>
+            @endif
+        </a>
+    </th>
+    
 
             <!-- NAME -->
             <?php $name = 'updated_at' ?>
@@ -79,10 +88,11 @@
                 <span class='lb-delete-all'>
                     {{ trans($plang_admin.'.columns.operations') }}
                 </span>
-
+            <div class="btn-del" style="display:none;">
                 {!! Form::submit(trans($plang_admin.'.buttons.delete'), array("class"=>"btn btn-danger pull-right delete btn-delete-all del-trash", 'name'=>'del-trash')) !!}
                 {!! Form::submit(trans($plang_admin.'.buttons.delete'), array("class"=>"btn btn-warning pull-right delete btn-delete-all del-forever", 'name'=>'del-forever')) !!}
-            </th>
+                </div>
+           </th>
 
             <!--DELETE-->
             <th style='width:{{ $withs['delete'] }}'>
@@ -104,6 +114,9 @@
 
                 <!--NAME-->
                 <td> {!! $item->api_name !!} </td>
+
+                <!--KEY-->
+                <td> {!! $item->api_key !!} </td>
                     
                     <!--STATUS-->
                 <td style="text-align: center;">
@@ -152,7 +165,7 @@
                 <!--DELETE-->
                 <td>
                     <span class='box-item pull-right'>
-                        <input type="checkbox" id="<?php echo $item->id ?>" name="ids[]" value="{!! $item->id !!}">
+                        <input type="checkbox"  class="ckbox" id="<?php echo $item->id ?>" name="ids[]" value="{!! $item->id !!}">
                         <label for="box-item"></label>
                     </span>
                 </td>
@@ -163,6 +176,8 @@
     </tbody>
 
 </table>
+</div>
+
 <div class="paginator">
     {!! $items->appends($request->except(['page']) )->render() !!}
 </div>

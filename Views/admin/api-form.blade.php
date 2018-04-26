@@ -74,15 +74,29 @@
             'errors' => $errors,
             ])
             <!-- /LIST OF CATEGORIES -->
-        </div>
-           <!--STATUS-->
-           @include('package-category::admin.partials.radio', [
-                'name' => 'context_status',
-                'label' => trans($plang_admin.'.labels.context-status'),
-                'value' => @$item->context_status,
-                'description' => trans($plang_admin.'.descriptions.context-status'),
-                'items' => $status
+            
+            <!--API KEY-->
+            @include('package-category::admin.partials.checkbox', [
+                'name' => 'api_key',
+                'label' => trans($plang_admin.'.labels.api-key'),
+                'value' => @$item->api_key,
+                'items' => [
+                           'add' => trans($plang_admin.'.checkboxs.api-key.add'),
+                        ],
+                'description' => trans($plang_admin.'.descriptions.api-key'),
+                'errors' => $errors,
             ])
+
+                <!--STATUS-->
+           @include('package-category::admin.partials.radio', [
+                'name' => 'api_status',
+                'label' => trans($plang_admin.'.labels.context-status'),
+                'value' => @$item->api_status,
+                'description' => trans($plang_admin.'.descriptions.context-status'),
+                'items' => $statuses
+            ])
+        </div>
+        
 
         <!--MENU 2-->
         <div id="menu_2" class="tab-pane fade">
@@ -109,6 +123,7 @@
             ])
             <!--/api DESCRIPTION-->
         </div>
+           
 
         <!--MENU 3-->
         <div id="menu_3" class="tab-pane fade">
@@ -134,6 +149,7 @@
         </div>
 
     </div>
+
     <!--/TAB CONTENT-->
 
     <!--HIDDEN FIELDS-->
