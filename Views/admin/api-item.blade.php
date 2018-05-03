@@ -29,9 +29,21 @@
         <tr style="height: 50px;">
 
             <!--ORDER-->
-            <th style='width:{{ $withs['order'] }}'>
-                {{ trans($plang_admin.'.columns.order') }}
-            </th>
+          
+           
+            <?php $name = 'api_id' ?>
+        <th class="hidden-xs" style='width:{{ $withs['order'] }};width:10%;'>{!! trans($plang_admin.'.columns.order') !!}
+            <a href='{!! $sorting["url"][$name] !!}' class='tb-id' data-order='asc'>
+                @if($sorting['items'][$name] == 'asc')
+                    <i class="fa fa-sort-amount-asc" aria-hidden="true"></i>
+                @elseif($sorting['items'][$name] == 'desc')
+                    <i class="fa fa-sort-amount-asc" aria-hidden="true"></i>
+                @else
+                    <i class="fa fa-sort-desc" aria-hidden="true"></i>
+                @endif
+            </a>
+        </th>
+
 
             <!-- NAME -->
             <?php $name = 'api_name' ?>
@@ -48,10 +60,19 @@
                 </a>
             </th>
               <!--KEY-->
-            <th style='width:{{ $withs['key'] }}'>
-                {{ trans($plang_admin.'.columns.key') }}
-            </th>
-
+           
+              <?php $name = 'api_key' ?>
+        <th class="hidden-xs" style='width:{{ $withs['key'] }};width:10%;'>{!! trans($plang_admin.'.columns.key') !!}
+            <a href='{!! $sorting["url"][$name] !!}' class='tb-id' data-order='asc'>
+                @if($sorting['items'][$name] == 'asc')
+                    <i class="fa fa-sort-amount-asc" aria-hidden="true"></i>
+                @elseif($sorting['items'][$name] == 'desc')
+                    <i class="fa fa-sort-amount-asc" aria-hidden="true"></i>
+                @else
+                    <i class="fa fa-sort-desc" aria-hidden="true"></i>
+                @endif
+            </a>
+        </th>
                       <!--REF-->
              <?php $name = 'api_status' ?>
 
@@ -109,8 +130,8 @@
     <tbody>
         @foreach($items as $item)
             <tr>
-                <!--COUNTER-->
-                <td> <?php echo $counter; $counter++ ?> </td>
+                <!--ORDER-->
+                <td>{!! $item->api_id !!}  </td>
 
                 <!--NAME-->
                 <td> {!! $item->api_name !!} </td>

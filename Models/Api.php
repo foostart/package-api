@@ -24,6 +24,7 @@ class Api extends FooModel {
 
         //list of field in table
         $this->fillable = [
+            'api_id',
             'api_name',
             'category_id',
             'user_id',
@@ -40,6 +41,7 @@ class Api extends FooModel {
 
         //list of fields for inserting
         $this->fields = [
+        
             'api_name' => [
                 'name' => 'api_name',
                 'type' => 'Text',
@@ -88,6 +90,7 @@ class Api extends FooModel {
 
         //check valid fields for inserting
         $this->valid_insert_fields = [
+            'api_id',
             'api_name',
             'user_id',
             'category_id',
@@ -105,6 +108,8 @@ class Api extends FooModel {
         $this->valid_ordering_fields = [
             'api_name',
             'updated_at',
+            'api_id',
+            'api_key',
             $this->field_status,
         ];
         //check valid fields for filter

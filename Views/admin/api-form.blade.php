@@ -93,7 +93,7 @@
                 'label' => trans($plang_admin.'.labels.context-status'),
                 'value' => @$item->api_status,
                 'description' => trans($plang_admin.'.descriptions.context-status'),
-                'items' => $statuses
+                'items' => $status
             ])
         </div>
         
