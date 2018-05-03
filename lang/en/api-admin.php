@@ -138,6 +138,7 @@ return [
         'lang' => 'List of languages',
         'context-status' =>'Status',
         'api-key' =>'Api Key',
+        
     ],
 
 
@@ -177,6 +178,7 @@ return [
         'slug' => 'Slug',
         'updated_at' => 'Updated at',
         'api_status' => 'Status',
+        'key' =>'Api Key',
     ],
 
 

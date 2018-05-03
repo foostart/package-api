@@ -68,8 +68,8 @@ View::composer([
          */
         $orders = [
             '' => trans($plang_admin.'.form.no-selected'),
-            'api_id' => trans($plang_admin.'.apis.id'),
-            'api_key' => trans($plang_admin.'.apis.key'),
+            'api_id' => trans($plang_admin.'.fields.id'),
+            'api_key' => trans($plang_admin.'.fields.key'),
             'id' => trans($plang_admin.'.fields.id'),
             'api_name' => trans($plang_admin.'.fields.name'),
             'updated_at' => trans($plang_admin.'.fields.updated_at'),

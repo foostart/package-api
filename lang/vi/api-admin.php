@@ -181,6 +181,7 @@ return [
         'slug' => 'Slug',
         'updated_at' => 'Updated at',
         'api_status' => 'Status',
+        'key' =>'Api Key',
     ],
 
 
