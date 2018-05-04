@@ -25,7 +25,7 @@ class ApiAdminController extends FooController {
 
     public $obj_item = NULL;
     public $obj_category = NULL;
-
+    public $statuses = NULL;
     public function __construct() {
 
         parent::__construct();

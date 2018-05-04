@@ -19,6 +19,7 @@ class ApiValidator extends FooValidator
             'api_name' => ["required"],
             'api_overview' => ["required"],
             'api_description' => ["required"],
+            'api_status' => ["required"],
         ];
 
         // set configs
@@ -38,6 +39,7 @@ class ApiValidator extends FooValidator
                 'api_name.required'          => trans($this->lang_admin.'.errors.required', ['attribute' => trans($this->lang_admin.'.fields.name')]),
                 'api_overview.required'      => trans($this->lang_admin.'.errors.required', ['attribute' => trans($this->lang_admin.'.fields.overview')]),
                 'api_description.required'   => trans($this->lang_admin.'.errors.required', ['attribute' => trans($this->lang_admin.'.fields.description')]),
+                'api_statuses.required'          => trans($this->lang_admin.'.errors.required', ['attribute' => trans($this->lang_admin.'.fields.update_at')]),
             ];
         });
 

@@ -137,7 +137,7 @@ return [
         'config' => 'List of configurations',
         'lang' => 'List of languages',
         'context-status' =>'Status',
-        'api-key' =>'Api Key',
+        'key' =>'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
         
     ],
 
@@ -297,5 +297,19 @@ return [
     'order' => [
         'by-asc' => 'ASC',
         'by-des' => 'DES',
+    ],
+      /*
+    |-----------------------------------------------------------------------
+    | CHECKBOX
+    |-----------------------------------------------------------------------
+    |
+    |
+    |
+    |
+    */
+    'checkboxs' => [
+        'api-key' => [
+            'add'=> 'Add item successfully',
+        ],
     ],
 ];
