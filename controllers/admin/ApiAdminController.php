@@ -141,7 +141,7 @@ class ApiAdminController extends FooController {
         $item = NULL;
 
         $params = array_merge($request->all(), $this->getUser());
-
+        
         $is_valid_request = $this->isValidRequest($request);
 
         $id = (int) $request->get('id');

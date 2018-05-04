@@ -280,8 +280,14 @@ class Api extends FooModel {
         if (!empty($api)) {
             $dataFields = $this->getDataFields($params, $this->fields);
 
+            if(isset($dataFields['api_key'])) {
+                $dataFields['api_key'] = $this->generateContextKey();
+            }else {
+                unset($dataFields['api_key']);
+            }
             foreach ($dataFields as $key => $value) {
                 $api->$key = $value;
+         
             }
 
          
