@@ -3,6 +3,69 @@
 use Illuminate\Session\TokenMismatchException;
 
 /**
+ * LOGIN
+ */
+Route::group(['middleware' => ['web'], 'namespace' => 'Foostart\Api\Controlers',], function () {
+    Route::get('api/login', [
+        'as' => 'api.login',
+        'uses' => 'APIController@login'
+    ]);
+
+    /**
+     * LOGOUT
+     */
+    Route::get('api/logout', [
+        'as' => 'api.logout',
+        'uses' => 'APIController@logout'
+    ]);
+});
+
+/*
+|-----------------------------------------------------------------------
+| COMMENT API
+|-----------------------------------------------------------------------
+| 1. Get list of comments
+| 2. Post a comment
+| 3. Vote a comment
+|
+*/
+Route::group(['middleware' => ['web'], 'namespace' => 'Foostart\Api\Controlers',], function () {
+    /**
+     * Get list comments by context id
+     */
+    Route::get('api/comment/{context}/{id}', [
+        'as' => 'api.get_comments',
+        'uses' => 'APICommentController@getComments'
+    ]);
+
+    /**
+     * Post a comment by context id
+     */
+    Route::post('api/post-comment/{context}/{id}', [
+        'as' => 'api.post_comment',
+        'uses' => 'APICommentController@postComment'
+    ]);
+
+    /**
+     * Delete a comment by context id
+     */
+    Route::post('api/delete-comment/{context}/{id}', [
+        'as' => 'api.delete_comment',
+        'uses' => 'APICommentController@deleteComment'
+    ]);
+
+    /**
+     * Vote a comment
+     */
+    Route::post('api/vote-comment/{context}/{id}', [
+        'as' => 'api.vote-comment',
+        'uses' => 'APICommentController@voteComment'
+    ])->middleware('api_admin_logged');
+
+});
+
+
+/**
  * FRONT
  */
 Route::get('api', [

@@ -20,11 +20,10 @@ class Api extends FooModel {
     public function setConfigs() {
 
         //table name
-        $this->table = 'apis';
+        $this->table = 'api';
 
         //list of field in table
         $this->fillable = [
-            'api_id',
             'api_name',
             'category_id',
             'user_id',
@@ -35,13 +34,10 @@ class Api extends FooModel {
             'api_image',
             'api_files',
             'api_status',
-            'api_key',
-          
         ];
 
         //list of fields for inserting
         $this->fields = [
-        
             'api_name' => [
                 'name' => 'api_name',
                 'type' => 'Text',
@@ -78,19 +74,10 @@ class Api extends FooModel {
                 'name' => 'files',
                 'type' => 'Json',
             ],
-            'api_status' => [
-                'name' => 'api_status',
-                'type' => 'Int',
-            ],
-            'api_key' => [
-                'name' => 'api_key',
-                'type' => 'Text',
-            ],
         ];
 
         //check valid fields for inserting
         $this->valid_insert_fields = [
-            'api_id',
             'api_name',
             'user_id',
             'category_id',
@@ -101,15 +88,12 @@ class Api extends FooModel {
             'api_image',
             'api_files',
             'api_status',
-            'api_key',
         ];
 
         //check valid fields for ordering
         $this->valid_ordering_fields = [
             'api_name',
             'updated_at',
-            'api_id',
-            'api_key',
             $this->field_status,
         ];
         //check valid fields for filter
@@ -232,7 +216,11 @@ class Api extends FooModel {
                     }
                 }
             }
-        } 
+        } elseif ($by_status) {
+
+            $elo = $elo->where($this->table . '.'.$this->field_status, '=', $this->status['publish']);
+
+        }
 
         return $elo;
     }
@@ -280,17 +268,11 @@ class Api extends FooModel {
         if (!empty($api)) {
             $dataFields = $this->getDataFields($params, $this->fields);
 
-            if(isset($dataFields['api_key'])) {
-                $dataFields['api_key'] = $this->generateContextKey();
-            }else {
-                unset($dataFields['api_key']);
-            }
             foreach ($dataFields as $key => $value) {
                 $api->$key = $value;
-         
             }
 
-         
+            $api->$field_status = $this->status['publish'];
 
             $api->save();
 
@@ -309,22 +291,18 @@ class Api extends FooModel {
     public function insertItem($params = []) {
 
         $dataFields = $this->getDataFields($params, $this->fields);
-        $dataFields['api_key'] = $this->generateApiKey();
+
+        $dataFields[$this->field_status] = $this->status['publish'];
+
+
         $item = self::create($dataFields);
 
         $key = $this->primaryKey;
         $item->id = $item->$key;
 
         return $item;
+    }
 
-    }
-  /**
-     * Generate Api key
-     */
-    private function generateApiKey(){
-        $api_key = substr(md5(time().rand(1,99999)),rand(1,10),29);
-        return $api_key;
-    }
 
     /**
      *
@@ -338,7 +316,7 @@ class Api extends FooModel {
         if ($item) {
             switch ($delete_type) {
                 case 'delete-trash':
-                    return $item->delete($item);
+                    return $item->fdelete($item);
                     break;
                 case 'delete-forever':
                     return $item->delete();

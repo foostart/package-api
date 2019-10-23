@@ -2,13 +2,10 @@
 <?php
     $withs = [
         'order' => '5%',
-        'name' => '20%',
-        'key' => '10%',
-        'status' => '20%',
-        'updated_at' => '25%',
-        'operations' => '15%',
+        'name' => '40%',
+        'updated_at' => '40%',
+        'operations' => '10%',
         'delete' => '5%',
-        
     ];
 
     global $counter;
@@ -22,28 +19,16 @@
         {!! trans($plang_admin.'.descriptions.counters', ['number' => $nav['total']]) !!}
     @endif
 </caption>
-<div class="table-responsive">
+
 <table class="table table-hover">
 
     <thead>
         <tr style="height: 50px;">
 
             <!--ORDER-->
-          
-           
-            <?php $name = 'api_id' ?>
-        <th class="hidden-xs" style='width:{{ $withs['order'] }};width:10%;'>{!! trans($plang_admin.'.columns.order') !!}
-            <a href='{!! $sorting["url"][$name] !!}' class='tb-id' data-order='asc'>
-                @if($sorting['items'][$name] == 'asc')
-                    <i class="fa fa-sort-amount-asc" aria-hidden="true"></i>
-                @elseif($sorting['items'][$name] == 'desc')
-                    <i class="fa fa-sort-amount-asc" aria-hidden="true"></i>
-                @else
-                    <i class="fa fa-sort-desc" aria-hidden="true"></i>
-                @endif
-            </a>
-        </th>
-
+            <th style='width:{{ $withs['order'] }}'>
+                {{ trans($plang_admin.'.columns.order') }}
+            </th>
 
             <!-- NAME -->
             <?php $name = 'api_name' ?>
@@ -59,35 +44,6 @@
                     @endif
                 </a>
             </th>
-              <!--KEY-->
-           
-              <?php $name = 'api_key' ?>
-        <th class="hidden-xs" style='width:{{ $withs['key'] }};width:10%;'>{!! trans($plang_admin.'.columns.key') !!}
-            <a href='{!! $sorting["url"][$name] !!}' class='tb-id' data-order='asc'>
-                @if($sorting['items'][$name] == 'asc')
-                    <i class="fa fa-sort-amount-asc" aria-hidden="true"></i>
-                @elseif($sorting['items'][$name] == 'desc')
-                    <i class="fa fa-sort-amount-asc" aria-hidden="true"></i>
-                @else
-                    <i class="fa fa-sort-desc" aria-hidden="true"></i>
-                @endif
-            </a>
-        </th>
-                      <!--REF-->
-             <?php $name = 'api_status' ?>
-
-    <th class="hidden-xs" style='width:{{ $withs['name'] }}'>{!! trans($plang_admin.'.columns.api_status') !!}
-        <a href='{!! $sorting["url"][$name] !!}' class='tb-id' data-order='asc'>
-            @if($sorting['items'][$name] == 'asc')
-                <i class="fa fa-sort-alpha-asc" aria-hidden="true"></i>
-            @elseif($sorting['items'][$name] == 'desc')
-                <i class="fa fa-sort-alpha-desc" aria-hidden="true"></i>
-            @else
-                <i class="fa fa-sort-desc" aria-hidden="true"></i>
-            @endif
-        </a>
-    </th>
-    
 
             <!-- NAME -->
             <?php $name = 'updated_at' ?>
@@ -109,11 +65,10 @@
                 <span class='lb-delete-all'>
                     {{ trans($plang_admin.'.columns.operations') }}
                 </span>
-            <div class="btn-del" style="display:none;">
+
                 {!! Form::submit(trans($plang_admin.'.buttons.delete'), array("class"=>"btn btn-danger pull-right delete btn-delete-all del-trash", 'name'=>'del-trash')) !!}
                 {!! Form::submit(trans($plang_admin.'.buttons.delete'), array("class"=>"btn btn-warning pull-right delete btn-delete-all del-forever", 'name'=>'del-forever')) !!}
-                </div>
-           </th>
+            </th>
 
             <!--DELETE-->
             <th style='width:{{ $withs['delete'] }}'>
@@ -130,25 +85,11 @@
     <tbody>
         @foreach($items as $item)
             <tr>
-                <!--ORDER-->
-                <td>{!! $item->api_id !!}  </td>
+                <!--COUNTER-->
+                <td> <?php echo $counter; $counter++ ?> </td>
 
                 <!--NAME-->
                 <td> {!! $item->api_name !!} </td>
-
-                <!--KEY-->
-                <td> {!! $item->api_key !!} </td>
-                    
-                    <!--STATUS-->
-                <td style="text-align: center;">
-
-                        <?php $status = config('package-category.status'); ?>
-                        @if($item->api_status && (isset($status['list'][$item->api_status])))
-                            <i class="fa fa-circle" style="color:{!! $status['color'][$item->api_status] !!}" title='{!! $status["list"][$item->api_status] !!}'></i>
-                        @else
-                        <i class="fa fa-circle-o red" title='{!! trans($plang_admin.".labels.unknown") !!}'></i>
-                        @endif
-                        </td>
 
                 <!--UPDATED AT-->
                 <td> {!! $item->updated_at !!} </td>
@@ -186,7 +127,7 @@
                 <!--DELETE-->
                 <td>
                     <span class='box-item pull-right'>
-                        <input type="checkbox"  class="ckbox" id="<?php echo $item->id ?>" name="ids[]" value="{!! $item->id !!}">
+                        <input type="checkbox" id="<?php echo $item->id ?>" name="ids[]" value="{!! $item->id !!}">
                         <label for="box-item"></label>
                     </span>
                 </td>
@@ -197,8 +138,6 @@
     </tbody>
 
 </table>
-</div>
-
 <div class="paginator">
     {!! $items->appends($request->except(['page']) )->render() !!}
 </div>

@@ -51,7 +51,6 @@ return [
         'operations' => 'Operations',
         'updated_at' => 'Updated at',
         'filename' => 'File name',
-        'key' => 'Key',
     ],
 
 
@@ -136,9 +135,6 @@ return [
         'not-found' => 'Not found items',
         'config' => 'List of configurations',
         'lang' => 'List of languages',
-        'context-status' =>'Status',
-        'key' =>'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
-        
     ],
 
 
@@ -176,9 +172,7 @@ return [
         'description' => 'Api Description',
         'overview' => 'Api Overview',
         'slug' => 'Slug',
-        'updated_at' => 'Updated at',
-        'api_status' => 'Status',
-        'key' =>'Api Key',
+        'updated_at' => 'Updated at'
     ],
 
 
@@ -203,8 +197,6 @@ return [
         'title-search' => 'Search api',
         'title-backup' => 'Backups',
         'config' => 'Configurations',
-        'context-status' =>'Status',
-        'api-key' =>'Context key',
     ],
 
 
@@ -293,23 +285,5 @@ return [
         'edit-error' => 'Edit item failed',
         'delete-ok' => 'Delete item successfully',
         'delete-error' => 'Delete item failed',
-    ],
-    'order' => [
-        'by-asc' => 'ASC',
-        'by-des' => 'DES',
-    ],
-      /*
-    |-----------------------------------------------------------------------
-    | CHECKBOX
-    |-----------------------------------------------------------------------
-    |
-    |
-    |
-    |
-    */
-    'checkboxs' => [
-        'api-key' => [
-            'add'=> 'Add item successfully',
-        ],
     ],
 ];

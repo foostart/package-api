@@ -25,7 +25,7 @@ class ApiAdminController extends FooController {
 
     public $obj_item = NULL;
     public $obj_category = NULL;
-    public $statuses = NULL;
+
     public function __construct() {
 
         parent::__construct();
@@ -61,7 +61,6 @@ class ApiAdminController extends FooController {
 
         // //set category
         $this->category_ref_name = 'admin/apis';
-        $this->statuses = config('package-api.status.list');
 
     }
 
@@ -81,7 +80,6 @@ class ApiAdminController extends FooController {
             'items' => $items,
             'request' => $request,
             'params' => $params,
-            'statuses' => $this->statuses,
         ));
 
         return view($this->page_views['admin']['items'], $this->data_view);
@@ -126,7 +124,6 @@ class ApiAdminController extends FooController {
             'categories' => $categories,
             'request' => $request,
             'context' => $context,
-            'statuses' => $this->statuses,
         ));
         return view($this->page_views['admin']['edit'], $this->data_view);
     }
@@ -141,7 +138,7 @@ class ApiAdminController extends FooController {
         $item = NULL;
 
         $params = array_merge($request->all(), $this->getUser());
-        
+
         $is_valid_request = $this->isValidRequest($request);
 
         $id = (int) $request->get('id');

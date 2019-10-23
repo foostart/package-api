@@ -59,7 +59,6 @@ View::composer([
                 "url" => URL::route('apis.lang', []),
                 'icon' => '<i class="fa fa-language" aria-hidden="true"></i>'
             ],
-           
         ]);
 
         /**
@@ -68,12 +67,9 @@ View::composer([
          */
         $orders = [
             '' => trans($plang_admin.'.form.no-selected'),
-            'api_id' => trans($plang_admin.'.fields.id'),
-            'api_key' => trans($plang_admin.'.fields.key'),
             'id' => trans($plang_admin.'.fields.id'),
             'api_name' => trans($plang_admin.'.fields.name'),
             'updated_at' => trans($plang_admin.'.fields.updated_at'),
-            'api_status' => trans($plang_admin.'.fields.api_status'),
         ];
         $sorting = [
             'label' => $orders,

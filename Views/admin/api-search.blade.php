@@ -28,8 +28,8 @@
                 'name' => 'status',
                 'label' => trans($plang_admin.'.form.status'),
                 'value' => @$params['status']?$params['status']:'99',
-                'items' => $statuses,
-            ])  
+                'items' => $status,
+            ])
 
             <!--SORTING-->
             @include('package-category::admin.partials.sorting')
